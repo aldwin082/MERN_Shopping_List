@@ -34,4 +34,21 @@ router.delete('/:id', (req, res) => {
 })
 
 
+// @route UPDATE api/items
+// @desc Update an item
+// @access PUBLIC
+router.post('/update', (req, res) => {
+  console.log(req.body)
+  try {
+    Item.findByIdAndUpdate(
+      { _id: req.body.id}, 
+      { name: req.body.name}
+    )
+    .then(item => res.json(item));
+
+  } catch (err) {
+    res.json({ result: "error", message : err.msg}).status(404);
+  }
+})
+
 module.exports = router;
